@@ -1,7 +1,7 @@
 
-**SharpWield**
+# SharpWield
 
-SharpWield provides a way to run C# CSX script files without depending on an install of C# interactive (CSI.exe) being present. It uses il-Repack to bundle the Microsoft.CodeAnalysis DLLs into a single-file executable that runs an embedded Script.csx file.  Because sometimes you don't feel like using PowerShell.
+SharpWield provides a way to run C# .csx script files without depending on an install of C# interactive (CSI.exe) being present. It uses il-Repack to bundle the Microsoft.CodeAnalysis DLLs into a single-file executable that runs an embedded Script.csx file.  Because sometimes you don't feel like using PowerShell.
 
 First, embed your script:
 

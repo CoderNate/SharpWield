@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>SharpWield</id>
+    <!-- <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl> -->
+    <projectUrl>https://github.com/CoderNate/SharpWield</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <copyright>Copyright 2018</copyright>
+    <tags>CSI C# Script CSX</tags>
+  </metadata>
+  <files>
+    <file src="SharpWield.exe" target="tools" />
+  </files>
+</package>

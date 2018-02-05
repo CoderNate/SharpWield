@@ -4,8 +4,8 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>NET45</TargetFramework>
     <Version>0.1.0.0</Version>
-    <authors>CoderNate</authors>
-    <description>SharpWield provides a way to use C# scripts without depending on an install of C# interactive (CSI.exe) being present</description>
+    <Authors>CoderNate</Authors>
+    <Description>SharpWield provides a way to run C# .csx script files without depending on an install of C# interactive (CSI.exe) being present.</Description>
   </PropertyGroup>
 
   <ItemGroup>

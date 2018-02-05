@@ -1,10 +1,12 @@
 #tool nuget:?package=IlRepack&version=2.0.15
+#r "System.Linq.Xml"
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 //////////////////////////////////////////////////////////////////////
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
+var csProjPath = "./src/SharpWield.csproj";
 
 //////////////////////////////////////////////////////////////////////
 // PREPARATION
@@ -27,7 +29,7 @@ Task("Restore-NuGet-Packages")
     .IsDependentOn("Clean")
     .Does(() =>
 {
-    NuGetRestore("./src/SharpWield.csproj");
+    NuGetRestore(csProjPath);
 });
 
 Task("Build")
@@ -35,7 +37,7 @@ Task("Build")
     .Does(() =>
 {
     // Use MSBuild
-    MSBuild("./src/SharpWield.csproj", settings => {
+    MSBuild(csProjPath, settings => {
       settings.SetConfiguration(configuration);
       settings.ToolVersion = MSBuildToolVersion.VS2017;
     });
@@ -81,7 +83,23 @@ Task("IlRepack")
   var assemblyPaths = dllNames.Select(a => (exeDir + File(a)).Path).ToArray().AsEnumerable();
 
   ILRepack("./SharpWield.exe", exePath, assemblyPaths);
-    // @"\tools\ILRepack.2.0.15\tools\ILRepack.exe"
+});
+
+Task("pack")
+    .IsDependentOn("IlRepack")
+    .Does(() =>
+{
+    var propGroupElement = System.Xml.Linq.XDocument.Load(csProjPath).Document.Element("Project").Element("PropertyGroup");
+    var descrip = propGroupElement.Element("Description").Value;
+    var versionString = propGroupElement.Element("Version").Value;
+    var authors = propGroupElement.Element("Authors").Value.Split(' ');
+    NuGetPack("./SharpWield.nuspec", new NuGetPackSettings {
+        // OutputDirectory = "./",
+        Authors = authors,
+        Description = descrip,
+        Version = versionString,
+        Properties = new Dictionary<string, string> {{ "Configuration", configuration}}
+    });
 });
 
 Task("Default")
